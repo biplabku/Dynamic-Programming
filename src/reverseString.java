@@ -80,9 +80,50 @@ public class reverseString {
         return permutations;
     }
 
+    public static boolean bracketBalance(String str) {
+        char openParan = '(';
+        char openCurly = '{';
+        char openSquar = '[';
+        char closeParan = ')';
+        char closeCurly = '}';
+        char closeSquar = ']';
+
+        Stack<Character> theStack = new Stack<>();
+        for(int i = 0; i < str.length(); i++) {
+            if(str.charAt(i) == openParan) {
+                theStack.push(openParan);
+            }else if(str.charAt(i) == openCurly) {
+                theStack.push(openCurly);
+            }else if(str.charAt(i) == openSquar) {
+                theStack.push(openSquar);
+            }else if(str.charAt(i) == closeParan && !theStack.isEmpty()) {
+                if(theStack.pop() != openParan) {
+                    return false;
+                }
+            }else if(str.charAt(i) == closeCurly && !theStack.isEmpty()) {
+                if(theStack.pop() != openCurly ) {
+                    return false;
+                }
+            }else if(str.charAt(i) == closeSquar && !theStack.isEmpty()) {
+                if(theStack.pop() != openSquar) {
+                    return false;
+                }
+            }else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+
+
+
+
     public static void main(String[] args) {
         // System.out.println(getReverseString("my name is biplab"));
         // System.out.println(getPermutation("Cats"));
         System.out.println(panaBalance(")())"));
+        System.out.println(bracketBalance("{])}"));
     }
 }
