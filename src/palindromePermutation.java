@@ -16,7 +16,7 @@ public class palindromePermutation {
     }
 
     public static void main(String[] args) {
-        String str = "hello";
+        String str = "hello ";
         palindromePermutation ss = new palindromePermutation();
         System.out.println(ss.getPalindromePermutation(str));
     }
