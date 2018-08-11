@@ -8,7 +8,7 @@ public class reverseString {
     // Time complexity - O(N)
     // Space complexity - O(1) - even if its 100 input sze it will still use 3 space which implies
     // it will remain constant irrespective of the input size.
-
+    // Time complexity - O(N)
     public static boolean paranthesisMatch(String str) {
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < str.length(); i++) {
@@ -18,7 +18,7 @@ public class reverseString {
         }
         String str1 = sb.toString();
         Stack<Character> theStack = new Stack<>();
-        for(int i = 0; i < str1.length(); i++) {
+        for(int i = 0; i < str.length(); i++) {
             if(str1.charAt(i) == '(') {
                 theStack.push('(');
             }else if(str1.charAt(i) == ')' && !theStack.isEmpty()) {
@@ -28,6 +28,22 @@ public class reverseString {
             }
         }
         return theStack.isEmpty();
+    }
+
+    public static boolean panaBalance(String str) {
+        int openParanCount = 0;
+        for(int i = 0 ; i < str.length(); i++) {
+            if(str.charAt(i) == '(' ) {
+                openParanCount = openParanCount + 1;
+            }else if(str.charAt(i) == ')' ) {
+                if(openParanCount != 0) {
+                    openParanCount = openParanCount - 1;
+                }else {
+                    return false;
+                }
+            }
+        }
+        return openParanCount == 0;
     }
 
     public static String getReverseString(String str) {
@@ -67,7 +83,6 @@ public class reverseString {
     public static void main(String[] args) {
         // System.out.println(getReverseString("my name is biplab"));
         // System.out.println(getPermutation("Cats"));
-        System.out.println(paranthesisMatch("Sometimes (when I nest them (my parentheticals) " +
-                "too much (like this (and this))) they get confusing"));
+        System.out.println(panaBalance(")())"));
     }
 }
