@@ -1,5 +1,6 @@
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Stack;
 
 public class reverseString {
 
@@ -7,6 +8,27 @@ public class reverseString {
     // Time complexity - O(N)
     // Space complexity - O(1) - even if its 100 input sze it will still use 3 space which implies
     // it will remain constant irrespective of the input size.
+
+    public static boolean paranthesisMatch(String str) {
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < str.length(); i++) {
+            if(str.charAt(i) == '(' || str.charAt(i) == ')') {
+                sb.append(str.charAt(i));
+            }
+        }
+        String str1 = sb.toString();
+        Stack<Character> theStack = new Stack<>();
+        for(int i = 0; i < str1.length(); i++) {
+            if(str1.charAt(i) == '(') {
+                theStack.push('(');
+            }else if(str1.charAt(i) == ')' && !theStack.isEmpty()) {
+                theStack.pop();
+            }else {
+                return false;
+            }
+        }
+        return theStack.isEmpty();
+    }
 
     public static String getReverseString(String str) {
         char[] array = str.toCharArray();
@@ -43,7 +65,9 @@ public class reverseString {
     }
 
     public static void main(String[] args) {
-        System.out.println(getReverseString("my name is biplab"));
-        System.out.println(getPermutation("Cats"));
+        // System.out.println(getReverseString("my name is biplab"));
+        // System.out.println(getPermutation("Cats"));
+        System.out.println(paranthesisMatch("Sometimes (when I nest them (my parentheticals) " +
+                "too much (like this (and this))) they get confusing"));
     }
 }
