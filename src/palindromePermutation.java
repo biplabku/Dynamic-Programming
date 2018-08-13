@@ -2,7 +2,7 @@ import java.util.HashSet;
 
 public class palindromePermutation {
 
-
+    // palindrome permutation
     public boolean getPalindromePermutation(String str) {
         HashSet<Character> unpairedChar = new HashSet<>();
         for(char c : str.toCharArray()) {
