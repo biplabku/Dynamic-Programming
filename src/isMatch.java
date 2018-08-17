@@ -1,3 +1,5 @@
+import java.util.Collection;
+
 public class isMatch {
 
     // Given an input string (s) and a pattern (p), implement regular expression matching with support for '.' and '*'.
@@ -38,8 +40,23 @@ public class isMatch {
         return true;
     }
 
+    // understanding recursivre calls
+    public String testRecursive(int index, String str) {
+        if(index == 0) {
+            return "Am done";
+        }
+        System.out.println(index);
+        if(index == -1) {
+            ++index;
+            testRecursive(index, "not done");
+        }
+        return null;
+    }
+
+
     public static void main(String[] args) {
         isMatch match = new isMatch();
-        System.out.println(match.checkMatch("aab", "aab", 0, 0));
+        // System.out.println(match.checkMatch("aab", "aab", 0, 0));
+        System.out.println(match.testRecursive(-1, "Not done"));
     }
 }
