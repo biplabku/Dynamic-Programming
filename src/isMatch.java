@@ -12,6 +12,33 @@ public class isMatch {
 
     // s could be empty and contains only lowercase letters a-z.
     // p could be empty and contains only lowercase letters a-z, and characters like . or *.
+    public boolean isMatch(String str, String pattern, int idx1, int idx2) {
+        if(pattern.length() == idx2 && str.length() != idx1) {
+            return false;
+        }
+        if(str.length() < idx1 && pattern.length() < idx2) {
+            return false;
+        }
+        if(pattern.charAt(idx2) == '.' || str.charAt(idx1) == str.charAt(idx2)) {
+            ++idx1;
+            ++idx2;
+            return checkMatch(str, pattern, idx1, idx2);
+        }
+        else if(pattern.charAt(idx2) == '*') {
+            if(pattern.charAt(idx2 - 1) != str.charAt(idx1) ) {
+                ++idx2;
+                return checkMatch(str, pattern, idx1, idx2);
+            }else if(pattern.charAt(idx2 - 1) == str.charAt(idx1) || pattern.charAt(idx2) == '.') {
+                ++idx1;
+                ++idx2;
+                return isMatch(str, pattern, idx1, idx2);
+            }
+
+        }
+        return true;
+    }
+
+    // initial solution
 
     public boolean checkMatch(String str, String pattern, int idx1 , int idx2) {
         if(pattern.length() == idx2 && str.length() != idx1) {
@@ -57,6 +84,7 @@ public class isMatch {
     public static void main(String[] args) {
         isMatch match = new isMatch();
         // System.out.println(match.checkMatch("aab", "aab", 0, 0));
-        System.out.println(match.testRecursive(-1, "Not done"));
+        // System.out.println(match.testRecursive(-1, "Not done"));
+        System.out.println(match.isMatch("aa", "a.", 0, 0));
     }
 }
