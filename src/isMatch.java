@@ -80,11 +80,33 @@ public class isMatch {
         return null;
     }
 
+    // using dynamic programming
+    public boolean testMatch(String s, String p) {
+        int m = s.length(), n = p.length();
+        boolean[][] dp = new boolean[m + 1][n + 1];
+        dp[0][0] = true;
+        // p[0.., j - 3, j - 2, j - 1] matches empty iff p[j - 1] is '*' and p[0..j - 3] matches empty
+        for (int j = 1; j < n; j += 2)
+            if (p.charAt(j) == '*')     dp[0][j + 1] = dp[0][j - 1];
+        for (int i = 1; i <= m; i++)
+            for (int j = 1; j <= n; j++)
+                if (p.charAt(j - 1) != '*')
+                    dp[i][j] = dp[i - 1][j - 1] && isCharMatch(s.charAt(i - 1), p.charAt(j - 1));
+                else
+                    dp[i][j] = dp[i][j - 2] || dp[i - 1][j] && isCharMatch(s.charAt(i - 1), p.charAt(j - 2));
+        return dp[m][n];
+    }
+
+    private boolean isCharMatch(char s, char p) {
+        return p == '.' || s == p;
+    }
+
 
     public static void main(String[] args) {
         isMatch match = new isMatch();
         // System.out.println(match.checkMatch("aab", "aab", 0, 0));
         // System.out.println(match.testRecursive(-1, "Not done"));
-        System.out.println(match.isMatch("aa", "a.", 0, 0));
+        // System.out.println(match.isMatch("aa", "a.", 0, 0));
+        System.out.println(match.testMatch("aab", "c*a*b"));
     }
 }
